@@ -5,6 +5,7 @@ namespace MarineMonitor.Core;
 public sealed record SignalData
 {
     public string FileName { get; init; } = "";
+    public string SourcePath { get; init; } = "";
     public DateTime RecordedAt { get; init; }
     public double PositionSeconds { get; init; }
     public double DurationSeconds { get; init; }
@@ -33,6 +34,7 @@ public sealed record Telemetry
     public long Sequence { get; init; }
     public DateTime SentAtUtc { get; init; }
     public EquipmentData[] Equipment { get; init; } = [];
+    public MissionData? Mission { get; init; }
     public static Telemetry Parse(string json)
     {
         var data = JsonSerializer.Deserialize<Telemetry>(json, JsonOptions) ?? throw new JsonException("Empty telemetry");
@@ -46,6 +48,16 @@ public sealed record Telemetry
             if (e.State is not ("Playing" or "Paused" or "Stopped" or "Completed" or "Error")) throw new JsonException("Invalid equipment state");
             ValidateSignal(e.Current, 3); ValidateSignal(e.Vibration, 1);
         }
+        if (data.Mission is { } mission)
+        {
+            if (string.IsNullOrWhiteSpace(mission.SessionId) || mission.Inspections == null || mission.Inspections.Length > 16)
+                throw new JsonException("Invalid mission snapshot");
+            var inspectionIds = new HashSet<string>();
+            foreach (var inspection in mission.Inspections)
+                if (inspection == null || string.IsNullOrWhiteSpace(inspection.Id) ||
+                    !inspectionIds.Add(inspection.Id) || string.IsNullOrWhiteSpace(inspection.Point))
+                    throw new JsonException("Invalid inspection record");
+        }
         return data;
     }
     private static void ValidateSignal(SignalData? signal, int channels)
@@ -58,6 +70,24 @@ public sealed record Telemetry
             throw new JsonException("Invalid signal data");
     }
     internal static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true, MaxDepth = 16 };
+}
+public sealed record MissionData
+{
+    public string SessionId { get; init; } = "";
+    public string State { get; init; } = "";
+    public string Detail { get; init; } = "";
+    public bool CanStart { get; init; }
+    public InspectionData[] Inspections { get; init; } = [];
+}
+public sealed record InspectionData
+{
+    public string Id { get; init; } = "";
+    public string Point { get; init; } = "";
+    public string EquipmentId { get; init; } = "";
+    public string SourceEquipmentId { get; init; } = "";
+    public string FilePath { get; init; } = "";
+    public string Error { get; init; } = "";
+    public DateTime CompletedAtUtc { get; init; }
 }
 public sealed record ReceivedTelemetry(Telemetry Data, DateTime ReceivedAtUtc, long ConnectionId);
 public sealed record ClientEvent(DateTime Time, string Message);

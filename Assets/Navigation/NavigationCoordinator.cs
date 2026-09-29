@@ -110,6 +110,14 @@ namespace ShipRobot.Navigation
         public MissionState State { get; private set; }
         public PlantNodeId CurrentNode { get; private set; }
         public string StatusDetail => statusDetail;
+        public event Action<string> InspectionCompleted;
+        public bool IsTrainingMission => avoidanceAgent != null && avoidanceAgent.IsTraining;
+        public void UseDashboardStart() => autoStartEquipmentAAndBMission = false;
+        public void StopFromDashboard()
+        {
+            avoidanceAgent?.CancelDemoAvoidance();
+            ResetMission();
+        }
         public bool IsFollowingEquipmentLeg(PlantNodeId from, PlantNodeId to) =>
             activeMission == ActiveMission.EquipmentAAndB &&
             (State == MissionState.FollowingLane || State == MissionState.StraightToNextMarker) &&
@@ -433,6 +441,9 @@ namespace ShipRobot.Navigation
             PlantNodeId target = activeRoute[targetRouteIndex];
             statusDetail = $"Inspection complete; following ID {(int)target} ({target})";
             laneFollower.ResumeLaneFollowing();
+            // Monitoring failures must not strand the navigation state machine.
+            try { InspectionCompleted?.Invoke(pointName); }
+            catch (Exception ex) { Debug.LogException(ex, this); }
         }
 
         private void ArriveAtTargetNode()

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+ <ItemGroup>
+  <ProjectReference Include="../MarineMonitor.Core/MarineMonitor.Core.csproj" />
+  <Compile Include="../../Assets/EquipmentMonitoring/CsvSignal.cs" Link="CsvSignal.cs" />
+  <Compile Include="../../Assets/EquipmentMonitoring/CsvReplaySession.cs" Link="CsvReplaySession.cs" />
+  <Compile Include="../../Assets/EquipmentMonitoring/EquipmentData.cs" Link="EquipmentData.cs" />
+  <Compile Include="../../Assets/EquipmentMonitoring/EquipmentTcpServer.cs" Link="EquipmentTcpServer.cs" />
+  <Compile Include="../../Assets/EquipmentMonitoring/EquipmentWireProtocol.cs" Link="EquipmentWireProtocol.cs" />
+  <NewtonsoftPath Include="../../Library/PackageCache/com.unity.nuget.newtonsoft-json@*/Runtime/Newtonsoft.Json.dll" />
+  <Reference Include="Newtonsoft.Json"><HintPath>@(NewtonsoftPath)</HintPath></Reference>
+ </ItemGroup>
+</Project>

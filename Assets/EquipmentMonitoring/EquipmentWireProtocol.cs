@@ -16,9 +16,9 @@ namespace ShipRobot.EquipmentMonitoring
             Converters = new List<JsonConverter> { new StringEnumConverter() },
             DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffffffK"
         };
-        public static string Telemetry(long sequence, IEnumerable<EquipmentSnapshot> equipment) =>
+        public static string Telemetry(long sequence, IEnumerable<EquipmentSnapshot> equipment, object mission = null) =>
             JsonConvert.SerializeObject(new { version = Version, type = "telemetry", sequence,
-                sentAtUtc = DateTime.UtcNow, equipment }, Settings);
+                sentAtUtc = DateTime.UtcNow, equipment, mission }, Settings);
         public static string Response(string id, bool ok, string code, string message) =>
             JsonConvert.SerializeObject(new { version = Version, type = "commandResult", commandId = id, ok, code, message }, Settings);
     }

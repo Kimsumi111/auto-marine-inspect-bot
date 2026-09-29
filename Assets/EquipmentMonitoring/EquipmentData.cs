@@ -15,6 +15,8 @@ namespace ShipRobot.EquipmentMonitoring
     public sealed class SignalSnapshot
     {
         public string FileName { get; }
+        // Localhost replay provenance; never a remotely supplied executable or command.
+        public string SourcePath { get; }
         public DateTime RecordedAt { get; } // Source local timestamp; timezone is unspecified.
         public double PositionSeconds { get; }
         public double DurationSeconds { get; }
@@ -26,6 +28,7 @@ namespace ShipRobot.EquipmentMonitoring
         internal SignalSnapshot(CsvSignal file, int index, bool completed)
         {
             FileName = System.IO.Path.GetFileName(file.Path);
+            SourcePath = System.IO.Path.GetFullPath(file.Path);
             RecordedAt = file.RecordedAt;
             PositionSeconds = index / file.SampleRate;
             DurationSeconds = file.Count / file.SampleRate;

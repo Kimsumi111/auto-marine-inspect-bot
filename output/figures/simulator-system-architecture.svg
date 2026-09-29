@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1120" viewBox="0 0 1700 1120">
+<rect width="1700" height="1120" fill="white"/>
+<text x="850" y="30.0" font-family="Malgun Gothic, sans-serif" font-size="30.799999999999997" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">Unity 기반 자율 순찰·점검 시뮬레이터 구조</text>
+<rect x="30" y="72" width="1240" height="940" rx="12" fill="#FAFCFE" stroke="#91A3B2" stroke-width="1.3"/>
+<rect x="1320" y="72" width="350" height="940" rx="12" fill="#FFFCF8" stroke="#B9A28E" stroke-width="1.3"/>
+<text x="650" y="100.0" font-family="Malgun Gothic, sans-serif" font-size="22.4" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#27628D">운용 · 데모 환경</text>
+<text x="1495" y="100.0" font-family="Malgun Gothic, sans-serif" font-size="22.4" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#A55C20">학습 · 모델 배포</text>
+<rect x="75" y="132" width="1150" height="80" rx="8" fill="#ECF3F8" stroke="#263442" stroke-width="1.3"/>
+<text x="650.0" y="160.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">가상 설비·주행 환경</text>
+<text x="650.0" y="186.0" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">설비 A·B  /  노란색 주행 경계선  /  바닥 마커·점검 지점  /  보행자 시나리오</text>
+<rect x="75" y="260" width="250" height="112" rx="8" fill="#FFFFFF" stroke="#263442" stroke-width="1.3"/>
+<text x="200.0" y="288.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">전방 RGB 영상</text>
+<text x="200.0" y="316.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">HSV 차선 검출</text>
+<text x="200.0" y="343.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">YOLOX-S 사람 검출</text>
+<polyline points="200,212 200,260" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="200,260 205.0,249.0 195.0,249.0" fill="#263442"/>
+<polyline points="200,372 200,400" fill="none" stroke="#263442" stroke-width="1.5"/>
+<rect x="375" y="260" width="250" height="112" rx="8" fill="#FFFFFF" stroke="#263442" stroke-width="1.3"/>
+<text x="500.0" y="288.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">좌·우 가상 ToF</text>
+<text x="500.0" y="316.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">거리·접근 속도</text>
+<text x="500.0" y="343.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">충돌 예상 시간(TTC)</text>
+<polyline points="500,212 500,260" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="500,260 505.0,249.0 495.0,249.0" fill="#263442"/>
+<polyline points="500,372 500,400" fill="none" stroke="#263442" stroke-width="1.5"/>
+<rect x="675" y="260" width="250" height="112" rx="8" fill="#FFFFFF" stroke="#263442" stroke-width="1.3"/>
+<text x="800.0" y="288.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">마커 모의 관측</text>
+<text x="800.0" y="316.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">씬 좌표·카메라 시야</text>
+<text x="800.0" y="343.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">6개 노드·경로 그래프</text>
+<polyline points="800,212 800,260" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="800,260 805.0,249.0 795.0,249.0" fill="#263442"/>
+<polyline points="800,372 800,400" fill="none" stroke="#263442" stroke-width="1.5"/>
+<rect x="975" y="260" width="250" height="112" rx="8" fill="#FFFFFF" stroke="#263442" stroke-width="1.3"/>
+<text x="1100.0" y="288.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">로봇·트랙 상태</text>
+<text x="1100.0" y="316.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">속도·각속도·구동 명령</text>
+<text x="1100.0" y="343.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">트랙 복귀 방향 정보</text>
+<polyline points="1100,212 1100,260" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="1100,260 1105.0,249.0 1095.0,249.0" fill="#263442"/>
+<polyline points="1100,372 1100,400" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polyline points="200,400 1100,400" fill="none" stroke="#263442" stroke-width="1.5"/>
+<text x="650" y="387.0" font-family="Malgun Gothic, sans-serif" font-size="15.399999999999999" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#27628D">인식 결과 및 상태 정보</text>
+<rect x="75" y="462" width="250" height="125" rx="8" fill="#ECF3F8" stroke="#263442" stroke-width="1.3"/>
+<text x="200.0" y="490.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">차선·임무 주행</text>
+<text x="200.0" y="525.48" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">차선 중심 추종·코너링</text>
+<text x="200.0" y="551.52" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">경로 이동·점검 정지</text>
+<polyline points="200,400 200,462" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="200,462 205.0,451.0 195.0,451.0" fill="#263442"/>
+<polyline points="200,587 200,645" fill="none" stroke="#263442" stroke-width="1.5"/>
+<rect x="375" y="462" width="250" height="125" rx="8" fill="#ECF3F8" stroke="#263442" stroke-width="1.3"/>
+<text x="500.0" y="490.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">PPO 사람 회피</text>
+<text x="500.0" y="525.48" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">관측 20차원 × 4시점</text>
+<text x="500.0" y="551.52" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">연속 이동·회전 명령</text>
+<polyline points="500,400 500,462" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="500,462 505.0,451.0 495.0,451.0" fill="#263442"/>
+<polyline points="500,587 500,645" fill="none" stroke="#263442" stroke-width="1.5"/>
+<rect x="675" y="462" width="250" height="125" rx="8" fill="#ECF3F8" stroke="#263442" stroke-width="1.3"/>
+<text x="800.0" y="490.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">알고리즘 차선 복귀</text>
+<text x="800.0" y="525.48" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">위험 해소 후 재탐색</text>
+<text x="800.0" y="551.52" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">차선 정렬·주행 재개</text>
+<polyline points="800,400 800,462" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="800,462 805.0,451.0 795.0,451.0" fill="#263442"/>
+<polyline points="800,587 800,645" fill="none" stroke="#263442" stroke-width="1.5"/>
+<rect x="975" y="462" width="250" height="125" rx="8" fill="#ECF3F8" stroke="#263442" stroke-width="1.3"/>
+<text x="1100.0" y="490.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">ADAS 안전 제어</text>
+<text x="1100.0" y="525.48" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">거리·TTC 기반 감속</text>
+<text x="1100.0" y="551.52" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">근접 위험 시 긴급 정지</text>
+<polyline points="1100,400 1100,462" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="1100,462 1105.0,451.0 1095.0,451.0" fill="#263442"/>
+<polyline points="1100,587 1100,645" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polyline points="200,645 1100,645" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polyline points="650,645 650,700" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="650,700 655.0,689.0 645.0,689.0" fill="#263442"/>
+<rect x="280" y="700" width="740" height="100" rx="8" fill="#DEEAF3" stroke="#263442" stroke-width="1.3"/>
+<text x="650.0" y="728.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">제어 권한 조정</text>
+<text x="650.0" y="764.0" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">점검·임무 정지 / ADAS 긴급 정지 → PPO 회피·차선 복귀 → 일반 주행</text>
+<polyline points="650,800 650,848" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="650,848 655.0,837.0 645.0,837.0" fill="#263442"/>
+<rect x="280" y="848" width="740" height="100" rx="8" fill="#FFFFFF" stroke="#263442" stroke-width="1.3"/>
+<text x="650.0" y="876.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">로봇 구동 및 물리 시뮬레이션</text>
+<text x="650.0" y="912.0" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">좌우 바퀴 구동 → 로봇 이동·회전 → 센서 관측 갱신</text>
+<polyline points="280,898 52,898 52,172 75,172" fill="none" stroke="#263442" stroke-width="1.5"/>
+<polygon points="75,172 64.0,167.0 64.0,177.0" fill="#263442"/>
+<text x="150" y="925.0" font-family="Malgun Gothic, sans-serif" font-size="15.399999999999999" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">상태 피드백</text>
+<text x="650" y="983.0" font-family="Malgun Gothic, sans-serif" font-size="15.399999999999999" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">점검 지점 정지는 점검 동작을 표현하는 데모이며, 설비 진단 모듈과는 별도 구성</text>
+<rect x="1345" y="132" width="300" height="116" rx="8" fill="#F7EEE4" stroke="#263442" stroke-width="1.3"/>
+<text x="1495.0" y="160.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">학습용 Unity 환경</text>
+<text x="1495.0" y="190.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">보행자 접근·로봇 초기화</text>
+<text x="1495.0" y="217.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">보상·성공·충돌·이탈 판정</text>
+<polyline points="1455,248 1455,305" fill="none" stroke="#A55C20" stroke-width="1.5"/>
+<polygon points="1455,305 1460.0,294.0 1450.0,294.0" fill="#A55C20"/>
+<polyline points="1535,305 1535,248" fill="none" stroke="#A55C20" stroke-width="1.5"/>
+<polygon points="1535,248 1530.0,259.0 1540.0,259.0" fill="#A55C20"/>
+<text x="1495" y="277.0" font-family="Malgun Gothic, sans-serif" font-size="14.0" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#A55C20">ML-Agents</text>
+<rect x="1345" y="305" width="300" height="112" rx="8" fill="#F7EEE4" stroke="#263442" stroke-width="1.3"/>
+<text x="1495.0" y="333.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">Python PPO 학습기</text>
+<text x="1495.0" y="361.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">관측·행동·보상 교환</text>
+<text x="1495.0" y="388.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">정책 갱신·체크포인트 저장</text>
+<polyline points="1495,417 1495,488" fill="none" stroke="#A55C20" stroke-width="1.5"/>
+<polygon points="1495,488 1500.0,477.0 1490.0,477.0" fill="#A55C20"/>
+<rect x="1345" y="488" width="300" height="88" rx="8" fill="#F7EEE4" stroke="#263442" stroke-width="1.3"/>
+<text x="1495.0" y="516.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">학습 정책 ONNX</text>
+<text x="1495.0" y="546.0" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">Unity 내 추론에 사용</text>
+<polyline points="1345,532 1295,532 1295,433 500,433 500,462" fill="none" stroke="#A55C20" stroke-width="1.5" stroke-dasharray="7 5"/>
+<polygon points="500,462 505.0,451.0 495.0,451.0" fill="#A55C20"/>
+<text x="980" y="421.0" font-family="Malgun Gothic, sans-serif" font-size="14.0" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#A55C20">학습 모델 배포</text>
+<polyline points="1645,361 1657,361 1657,750 1645,750" fill="none" stroke="#A55C20" stroke-width="1.5"/>
+<polygon points="1645,750 1656.0,755.0 1656.0,745.0" fill="#A55C20"/>
+<rect x="1345" y="700" width="300" height="100" rx="8" fill="#FFFFFF" stroke="#263442" stroke-width="1.3"/>
+<text x="1495.0" y="728.0" font-family="Malgun Gothic, sans-serif" font-size="21.0" font-weight="700" text-anchor="middle" dominant-baseline="central" fill="#263442">W&amp;B 학습 모니터링</text>
+<text x="1495.0" y="750.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">보상·성공률·충돌률</text>
+<text x="1495.0" y="777.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">트랙 이탈·행동 지표</text>
+<text x="1495" y="876.98" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">학습 시: Python 학습기 연동</text>
+<text x="1495" y="903.02" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">데모 시: 저장 모델 추론</text>
+<text x="850" y="1053.0" font-family="Malgun Gothic, sans-serif" font-size="16.799999999999997" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">실선: 데이터·제어 흐름     점선: 학습된 모델의 배포</text>
+<text x="850" y="1088.0" font-family="Malgun Gothic, sans-serif" font-size="15.399999999999999" font-weight="400" text-anchor="middle" dominant-baseline="central" fill="#263442">바닥 마커와 트랙 보정은 시뮬레이터 상태를 이용한 정보이며, 실제 영상 마커 해독과 구분된다.</text>
+</svg>

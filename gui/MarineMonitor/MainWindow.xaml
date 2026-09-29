@@ -10,7 +10,7 @@
      <TextBlock Text="시뮬레이션 관제" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,5,0,42"/>
      <Border Background="#213B46" CornerRadius="6" Padding="12"><TextBlock Text="◉  설비 모니터링" Foreground="#62E2CF" FontWeight="Bold"/></Border>
      <TextBlock Text="로봇 임무" Foreground="{StaticResource Muted}" Margin="12,24,0,5"/>
-     <TextBlock Text="미연결 · 추후 제공" FontSize="11" Foreground="#637A96" Margin="12,0,0,0"/>
+     <TextBlock Text="{Binding MissionState}" TextWrapping="Wrap" FontSize="11" Foreground="#62E2CF" Margin="12,0,0,0"/>
     </StackPanel>
     <StackPanel DockPanel.Dock="Bottom" VerticalAlignment="Bottom">
      <TextBlock Text="PROTOTYPE  /  03" FontFamily="Segoe UI" FontSize="10" Foreground="#46D9C1"/>
@@ -37,6 +37,34 @@
       <TextBlock Grid.Column="2" Text="{Binding FrameInfo}" Foreground="{StaticResource Muted}" FontFamily="Consolas" FontSize="12"/>
      </Grid>
     </Border>
+    <Border Background="#142236" BorderBrush="#35CBB1" BorderThickness="1" CornerRadius="8" Padding="18" Margin="0,0,6,18">
+     <StackPanel>
+      <Grid><TextBlock Text="로봇 임무 · 설비 A + B" FontSize="19" FontWeight="Bold"/><TextBlock Text="{Binding MissionState}" HorizontalAlignment="Right" Foreground="#62E2CF"/></Grid>
+      <TextBlock Text="{Binding MissionDetail}" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,8,0,12"/>
+      <WrapPanel>
+       <Button Content="A+B 점검 임무 시작" Command="{Binding MissionControl}" CommandParameter="mission_start" Background="#35CBB1" Foreground="#09211E" FontWeight="Bold"/>
+       <Button Content="임무 중단 / 정지" Command="{Binding MissionControl}" CommandParameter="mission_stop" Background="#703C46"/>
+       <TextBlock Text="{Binding MissionCommandStatus}" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource Muted}"/>
+      </WrapPanel>
+     </StackPanel>
+    </Border>
+    <TextBlock Text="AI 점검 결과 · 축 정렬 / 베어링 / 벨트 / 회전체" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"/>
+    <TextBlock Text="점검 완료 시 결과가 추가됩니다. 원본 진동 CSV 전체 구간을 분석하며, 화면의 저주기 추세값은 진단 입력으로 사용하지 않습니다." TextWrapping="Wrap" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,0,0,12"/>
+    <ItemsControl ItemsSource="{Binding Inspections}" Margin="0,0,6,16">
+     <ItemsControl.ItemTemplate><DataTemplate>
+      <Border Background="#172B39" BorderBrush="#345164" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,0,10">
+       <StackPanel>
+        <Grid><TextBlock Text="{Binding Title}" FontWeight="Bold"/><TextBlock Text="{Binding Status}" Foreground="{Binding ResultColor}" HorizontalAlignment="Right" FontSize="12"/></Grid>
+        <TextBlock Text="{Binding Provenance}" FontSize="10" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,6,0,8"/>
+        <ItemsControl ItemsSource="{Binding Predictions}">
+         <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="2"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+         <ItemsControl.ItemTemplate><DataTemplate><TextBlock Text="{Binding Display}" FontSize="12" Margin="0,4,12,4"/></DataTemplate></ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Text="{Binding Details}" FontSize="10" TextWrapping="Wrap" Foreground="{StaticResource Muted}" Margin="0,7,0,0"/>
+       </StackPanel>
+      </Border>
+     </DataTemplate></ItemsControl.ItemTemplate>
+    </ItemsControl>
     <ItemsControl ItemsSource="{Binding Equipment}">
      <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Columns="2"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
      <ItemsControl.ItemTemplate><DataTemplate>
@@ -48,7 +76,7 @@
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="0,15,0,17">
          <TextBlock Text="시뮬레이션 설정  " Foreground="{StaticResource Muted}" FontSize="11"/><TextBlock Text="{Binding Simulation}" FontSize="11" FontWeight="Bold"/>
-         <TextBlock Text="     진단  " Foreground="{StaticResource Muted}" FontSize="11"/><TextBlock Text="{Binding Diagnosis}" FontSize="11" Foreground="#E9B15C"/>
+         <TextBlock Text="     AI 결과는 상단 점검 이력 참조" Foreground="{StaticResource Muted}" FontSize="11"/>
         </StackPanel>
         <Border Height="1" Background="#2A3A50" Margin="0,0,0,14"/>
         <Grid><TextBlock Text="전류 · 3채널" FontWeight="Bold"/><TextBlock HorizontalAlignment="Right" FontSize="10"><Run Text="CH1   " Foreground="#38D8C3"/><Run Text="CH2   " Foreground="#6BA4FF"/><Run Text="CH3" Foreground="#E9B15C"/></TextBlock></Grid>

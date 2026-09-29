@@ -7,15 +7,19 @@ Model asset: Assets/Resources/ShipRobotVision/HumanAvoidanceDemo.onnx.
 Its provenance JSON records the source hash. Export uses strict weight loading,
 80 stacked vector inputs and 2 continuous outputs, and ONNX checker validation.
 
-Open the original Assets/jetbot_env.unity and press Play. The Equipment A+B
-mission starts automatically; no Python trainer, W&B login, or UI button is needed.
+Open the original Assets/jetbot_env.unity and press Play. The dashboard integration
+now waits for the WPF **A+B 점검 임무 시작** command instead of automatic startup.
+Run `dotnet run --project gui/MarineMonitor/MarineMonitor.csproj` from the project
+root and click **Unity 연결** first. No Python trainer or W&B login is needed.
+See `tools/diagnosis/README.md` for setup and verification.
 The robot follows the Equipment A route, pauses 3 seconds at inspect_point_A1
 and inspect_point_A2, travels right from UnderMid to UnderRight, turns up the
 right aisle, and pauses at inspect_point_B2 and inspect_point_B1 in that order.
 It then travels UpperRight -> UpperMid -> UnderMid. The B points
 use the left-to-right route-marker offset from A at runtime if the scene does not yet contain B markers;
-running the Demo setup command saves them into the scene. Inspection is a timed demo; no
-equipment diagnostic measurements are produced by this timer.
+running the Demo setup command saves them into the scene. Inspection is a timed demo;
+completion triggers WPF analysis of a prerecorded vibration CSV, not a physical
+measurement. Four XGBoost binary results are shown independently with provenance.
 
 Control order: explicit stop/inspection and ADAS emergency brake, PPO avoidance
 and recovery, then lane/route assistance. ADAS scales ordinary lane speed and

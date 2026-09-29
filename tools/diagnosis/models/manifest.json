@@ -1,0 +1,6 @@
+{
+  "axis": {"file": "axis.json", "source": "xgboost_ship_equipment_Axis alignment_model (2).json", "sha256": "dc4879e0e24b62a8aa60f451f7c4c63bb3e2c10e06ea9277fd2d599217758819"},
+  "bearing": {"file": "bearing.json", "source": "xgboost_ship_equipment_Bearing_model (1).json", "sha256": "31b6e3ce8e75ceff722e8a00ef9a520d495d9c120b9946c381a850086eda0f7a"},
+  "belt": {"file": "belt.json", "source": "xgboost_ship_equipment_Belt_model (1).json", "sha256": "dacfe94df67c22b1c424ccceafcfd9df81ef2e8887c8c5adb44e4201cbeffc4f"},
+  "rotating": {"file": "rotating.json", "source": "xgboost_ship_equipment_Rotating body_model (1).json", "sha256": "194ca0a2d5bd8ea108053a0704f113093380c9bbc3b3cae02cc14e0734acfd14"}
+}

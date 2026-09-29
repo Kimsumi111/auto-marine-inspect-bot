@@ -13,6 +13,8 @@ namespace ShipRobot.EquipmentMonitoring
         private float nextPublish;
         private long sequence;
         private string startupError;
+        public Func<object> MissionSnapshot { get; set; }
+        public Func<string, string> MissionCommand { get; set; }
         public string Status => server == null ? "통신 중지: " + startupError : $"TCP 127.0.0.1:{server.Port} · " + (server.Connected ? "외부 클라이언트 연결됨" : "연결 대기");
         public void Configure(int listenPort, params MonoBehaviour[] providers) { port = listenPort; sources = providers; }
         private void Start() => StartServer();
@@ -34,10 +36,12 @@ namespace ShipRobot.EquipmentMonitoring
             var values = new List<EquipmentSnapshot>();
             if (sources != null) foreach (MonoBehaviour source in sources)
                 if (source != null && source is IEquipmentDataSource provider && provider.Latest != null) values.Add(provider.Latest);
-            server.Publish(EquipmentWireProtocol.Telemetry(++sequence, values));
+            server.Publish(EquipmentWireProtocol.Telemetry(++sequence, values, MissionSnapshot?.Invoke()));
         }
         private string ExecuteReplayCommand(string id, string action)
         {
+            if (id == "robot") return MissionCommand == null
+                ? "Robot mission is not connected" : MissionCommand(action);
             CsvReplayDataSource target = null;
             if (sources != null) foreach (MonoBehaviour source in sources)
                 if (source is CsvReplayDataSource replay && replay.Latest?.EquipmentId == id)

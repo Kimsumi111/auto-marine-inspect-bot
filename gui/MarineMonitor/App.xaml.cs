@@ -22,7 +22,7 @@ public partial class App : Application
             {
                 async Task WaitFor(Func<bool> condition)
                 {
-                    var until = DateTime.UtcNow.AddSeconds(15);
+                    var until = DateTime.UtcNow.AddSeconds(50);
                     while (!condition()) { if (DateTime.UtcNow > until) throw new TimeoutException("WPF smoke condition timed out"); await Task.Delay(50); }
                 }
                 window.Model.Port = e.Args[1]; window.Model.Connect.Execute(null);
@@ -34,11 +34,20 @@ public partial class App : Application
                 if (b.State != "재생 중") throw new Exception("B must keep playing");
                 a.Control.Execute("resume");
                 await WaitFor(() => a.State == "재생 중" && a.Control.CanExecute("pause"));
+                await WaitFor(() => window.Model.MissionControl.CanExecute("mission_start"));
+                window.Model.MissionControl.Execute("mission_start");
+                await WaitFor(() => window.Model.Inspections.Count == 1 &&
+                    window.Model.Inspections[0].Status != "진단 대기 / 분석 중");
+                if (window.Model.Inspections[0].Predictions.Count != 4)
+                    throw new Exception(window.Model.Inspections[0].Details);
+                await Task.Delay(300);
+                if (window.Model.Inspections.Count != 1) throw new Exception("Duplicate inspection result");
+                if (window.Model.MissionControl.CanExecute("mission_start")) throw new Exception("Repeated start must be disabled");
                 Capture(window, output + ".png");
                 window.Model.Connect.Execute(null);
                 await WaitFor(() => !a.Control.CanExecute("pause") && a.CurrentValues.Contains("—"));
                 Directory.CreateDirectory(Path.GetDirectoryName(output)!);
-                await File.WriteAllTextAsync(output + ".txt", "PASS: real WPF ViewModel receives A/B, fills charts, pauses A while B plays, resumes, clears values and disables controls on disconnect.");
+                await File.WriteAllTextAsync(output + ".txt", "PASS: WPF receives A/B, plots, pauses/resumes, sends mission start to TEST SERVER, processes one inspection once, runs all four REAL models, disables repeated start, clears live values on disconnect. Unity driving is not exercised.");
                 await window.Model.CloseAsync(); Shutdown(0);
             }
             catch (Exception ex)

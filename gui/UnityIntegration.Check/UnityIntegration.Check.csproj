@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <TargetFramework>netstandard2.1</TargetFramework><LangVersion>latest</LangVersion>
+  <EnableDefaultCompileItems>false</EnableDefaultCompileItems><NoWarn>0436</NoWarn>
+  <UnityManagedPath Condition="'$(UnityManagedPath)' == ''">C:/Program Files/Unity/Hub/Editor/6000.5.7f1/Editor/Data/Managed</UnityManagedPath>
+ </PropertyGroup>
+ <ItemGroup>
+  <Compile Include="../../Assets/EquipmentMonitoring/*.cs" />
+  <Compile Include="../../Assets/Navigation/NavigationCoordinator.cs" />
+  <Reference Include="$(UnityManagedPath)/UnityEngine/*.dll" />
+  <Reference Include="../../Library/ScriptAssemblies/*.dll" Exclude="../../Library/ScriptAssemblies/*Editor*.dll" />
+  <NewtonsoftPath Include="../../Library/PackageCache/com.unity.nuget.newtonsoft-json@*/Runtime/Newtonsoft.Json.dll" />
+  <Reference Include="Newtonsoft.Json"><HintPath>@(NewtonsoftPath)</HintPath></Reference>
+ </ItemGroup>
+</Project>

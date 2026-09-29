@@ -18,10 +18,22 @@ Check(parsed.Equipment[1].SimulationLabel == "베어링불량" && parsed.Equipme
 bool malformedRejected = false;
 try { Telemetry.Parse("{\"version\":2,\"type\":\"telemetry\"}"); } catch (System.Text.Json.JsonException) { malformedRejected = true; }
 Check(malformedRejected, "Protocol mismatch rejected");
+bool invalidMissionRejected = false;
+try { Telemetry.Parse("{\"version\":1,\"type\":\"telemetry\",\"equipment\":[],\"mission\":{\"sessionId\":\"test\",\"inspections\":null}}"); }
+catch (System.Text.Json.JsonException) { invalidMissionRejected = true; }
+Check(invalidMissionRejected, "Null inspection array rejected");
+var duplicateRouter = new EquipmentCommandRouter();
+int missionCalls = 0;
+string startJson = "{\"version\":1,\"type\":\"command\",\"commandId\":\"start-once\",\"equipmentId\":\"robot\",\"action\":\"mission_start\"}";
+string firstResponse = duplicateRouter.Handle(1, startJson, (_, _) => { missionCalls++; return null; });
+Check(duplicateRouter.Handle(1, startJson, (_, _) => { missionCalls++; return null; }) == firstResponse && missionCalls == 1,
+    "Repeated mission request ID executes once");
 var server = new EquipmentTcpServer(); server.Start(0); int port = server.Port;
 EquipmentTcpServer? transport = server;
 using var stop = new CancellationTokenSource();
 var router = new EquipmentCommandRouter();
+bool missionStarted = false;
+string inspectionPath = a.Latest.Vibration.SourcePath;
 Task host = Task.Run(async () =>
 {
     long sequence = 0;
@@ -30,6 +42,12 @@ Task host = Task.Run(async () =>
         var current = Volatile.Read(ref transport);
         current?.Pump((id, json) => router.Handle(id, json, (equipment, action) =>
         {
+            if (equipment == "robot")
+            {
+                if (action == "mission_start" && !missionStarted) { missionStarted = true; return null; }
+                if (action == "mission_stop") return null;
+                return "Mission already started or unsupported action";
+            }
             var target = equipment == "A" ? a : equipment == "B" ? b : null;
             if (target == null) return "Unknown equipment";
             switch (action)
@@ -42,7 +60,15 @@ Task host = Task.Run(async () =>
             return null;
         }));
         a.Tick(.05); b.Tick(.05);
-        current?.Publish(EquipmentWireProtocol.Telemetry(++sequence, new[] { a.Latest, b.Latest }));
+        object[] completed = missionStarted ? new object[] { new
+        {
+            id = "test-inspection-1", point = "inspect_point_A1", equipmentId = "A",
+            sourceEquipmentId = "L-DSF-01", completedAtUtc = DateTime.UtcNow,
+            filePath = inspectionPath, error = ""
+        } } : Array.Empty<object>();
+        current?.Publish(EquipmentWireProtocol.Telemetry(++sequence, new[] { a.Latest, b.Latest },
+            new { sessionId = "test-session", state = missionStarted ? "Completed" : "Idle",
+                detail = "TEST SERVER · simulated mission; real model inference", canStart = !missionStarted, inspections = completed }));
         await Task.Delay(50);
     }
 });
@@ -56,6 +82,7 @@ try
     Check(client.Latest!.Data.Equipment[1].State == "Playing", "B independent");
     Check(!(await client.SendAsync("A", "unsupported")).Ok, "Server failure response");
     Check((await client.SendAsync("A", "resume")).Ok, "Resume ACK");
+    Check(client.Latest!.Data.Mission?.CanStart == true, "Mission telemetry");
     long generation = client.Latest.ConnectionId;
     Volatile.Write(ref transport, null); server.Dispose();
     await WaitFor(() => !client.IsConnected && client.Latest == null);
@@ -71,7 +98,7 @@ try
         using var process = Process.Start(start)!;
         try
         {
-            await process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(40));
+            await process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(60));
             Check(process.ExitCode == 0, "WPF smoke failed; see gui/artifacts/wpf-smoke.txt");
             Console.WriteLine(await File.ReadAllTextAsync("gui/artifacts/wpf-smoke.txt"));
         }
